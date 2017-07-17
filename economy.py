@@ -1,4 +1,5 @@
 import random
+import sys
 import matplotlib.pyplot as plt
 
 # person class
@@ -40,11 +41,8 @@ for i in range(length):
             transfer_money(amount, person, other_person)
 
     # printing stuff
-    if i % 100 == 0 or i == length - 1:
-        print("Round " + str(i) + " outcome:")
-        for person in people:
-            print("ID " + str(person.id) + " has " + str(person.money))
-        print("---")
+    sys.stdout.write(str(i) + "\r")
+    sys.stdout.flush()
 
 # graphing
 people_money = []
@@ -53,4 +51,7 @@ for person in people:
 people_money.sort()
 people_money.reverse()
 plt.bar(range(len(people)), people_money)
+cur_axes = plt.gca()
+cur_axes.axes.get_xaxis().set_ticks([])
+cur_axes.axes.get_xaxis().set_ticklabels([])
 plt.show()
